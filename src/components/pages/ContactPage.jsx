@@ -53,62 +53,62 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-900/10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Information */}
             <div>
-              <h2 className="text-3xl font-bold mb-8">Contact Information</h2>
+              <h2 className="text-3xl font-bold mb-8 text-white">Contact Information</h2>
               
               <div className="space-y-6 mb-8">
                 <Card className="p-6 border-l-4 border-pink-500 hover:shadow-lg transition-shadow">
                   <div className="flex items-start">
-                    <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mr-4">
-                      <Phone className="w-6 h-6 text-pink-600" />
+                    <div className="w-12 h-12 bg-pink-900/20 rounded-lg flex items-center justify-center mr-4">
+                      <Phone className="w-6 h-6 text-pink-300" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">Phone</h3>
-                      <p className="text-gray-600">+44 7XXX XXXXXX</p>
-                      <p className="text-sm text-gray-500 mt-1">Mon-Sat, 9AM-6PM</p>
+                      <h3 className="font-semibold text-lg mb-1 text-white">Phone</h3>
+                      <p className="text-gray-300">+44 7XXX XXXXXX</p>
+                      <p className="text-sm text-gray-400 mt-1">Mon-Sat, 9AM-6PM</p>
                     </div>
                   </div>
                 </Card>
 
                 <Card className="p-6 border-l-4 border-blue-500 hover:shadow-lg transition-shadow">
                   <div className="flex items-start">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                      <Mail className="w-6 h-6 text-blue-600" />
+                    <div className="w-12 h-12 bg-blue-900/20 rounded-lg flex items-center justify-center mr-4">
+                      <Mail className="w-6 h-6 text-blue-300" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">Email</h3>
-                      <p className="text-gray-600">info@excellabraids.co.uk</p>
-                      <p className="text-sm text-gray-500 mt-1">We'll respond within 24 hours</p>
+                      <h3 className="font-semibold text-lg mb-1 text-white">Email</h3>
+                      <p className="text-gray-300">info@excellabraids.co.uk</p>
+                      <p className="text-sm text-gray-400 mt-1">We'll respond within 24 hours</p>
                     </div>
                   </div>
                 </Card>
 
                 <Card className="p-6 border-l-4 border-pink-500 hover:shadow-lg transition-shadow">
                   <div className="flex items-start">
-                    <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mr-4">
-                      <MapPin className="w-6 h-6 text-pink-600" />
+                    <div className="w-12 h-12 bg-pink-900/20 rounded-lg flex items-center justify-center mr-4">
+                      <MapPin className="w-6 h-6 text-pink-300" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">Location</h3>
-                      <p className="text-gray-600">Birmingham, United Kingdom</p>
-                      <p className="text-sm text-gray-500 mt-1">Serving clients nationwide</p>
+                      <h3 className="font-semibold text-lg mb-1 text-white">Location</h3>
+                      <p className="text-gray-300">Birmingham, United Kingdom</p>
+                      <p className="text-sm text-gray-400 mt-1">Serving clients nationwide</p>
                     </div>
                   </div>
                 </Card>
 
                 <Card className="p-6 border-l-4 border-blue-500 hover:shadow-lg transition-shadow">
                   <div className="flex items-start">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                      <Clock className="w-6 h-6 text-blue-600" />
+                    <div className="w-12 h-12 bg-blue-900/20 rounded-lg flex items-center justify-center mr-4">
+                      <Clock className="w-6 h-6 text-blue-300" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">Business Hours (Two-week pattern)</h3>
-                      <p className="text-sm text-gray-600 mb-2">We run a repeating two-week schedule that flips between Week A and Week B.</p>
-                      <div className="text-gray-600 space-y-2">
+                      <h3 className="font-semibold text-lg mb-1 text-white">Business Hours (Two-week pattern)</h3>
+                      <p className="text-sm text-gray-400 mb-2">We run a repeating two-week schedule that flips between Week A and Week B.</p>
+                      <div className="text-gray-300 space-y-2">
                         <div>
                           <strong>Week A (parity 0):</strong> Workdays — Monday, Tuesday, Saturday, Sunday — Hours: 09:00 — 18:00
                         </div>
@@ -116,7 +116,7 @@ export default function ContactPage() {
                           <strong>Week B (parity 1):</strong> Workdays — Wednesday, Thursday, Friday — Hours: 09:00 — 18:00
                         </div>
                         <div className="mt-2 text-sm">
-                          <em>Today's status:</em> <span className="font-semibold text-gray-800">{(() => {
+                          <em>Today's status:</em> <span className="font-semibold text-gray-200">{(() => {
                             const today = startOfDay(new Date());
                             const referenceMonday = new Date(2026, 0, 5);
                             const parity = Math.abs(differenceInCalendarWeeks(today, referenceMonday, { weekStartsOn: 1 })) % 2;
@@ -169,12 +169,12 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div>
               <Card className="p-8">
-                <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
+                <h2 className="text-2xl font-bold mb-6 text-white">Send Us a Message</h2>
                 
                 {submitted && (
-                  <Alert className="mb-6 bg-green-50 border-green-200">
-                    <Send className="h-5 w-5 text-green-600" />
-                    <AlertDescription className="text-green-900">
+                  <Alert className="mb-6 bg-green-900/20 border-green-800">
+                    <Send className="h-5 w-5 text-green-200" />
+                    <AlertDescription className="text-green-200">
                       Thank you for your message! We'll get back to you soon.
                     </AlertDescription>
                   </Alert>
@@ -255,8 +255,8 @@ export default function ContactPage() {
               </Card>
 
               {/* Quick Tips */}
-              <Alert className="mt-6 border-blue-200 bg-blue-50">
-                <AlertDescription className="text-blue-900 text-sm">
+              <Alert className="mt-6 border-blue-800 bg-blue-900/20">
+                <AlertDescription className="text-blue-200 text-sm">
                   <strong>Quick Tips:</strong> For booking inquiries, please include your preferred date and service. 
                   For urgent matters, call us directly during business hours.
                 </AlertDescription>
@@ -308,7 +308,7 @@ function AvailabilityCalendar(){
         const day = addDays(today, i);
         const available = isAvailable(day);
         return (
-          <div key={i} className={`py-2 px-1 rounded-md text-xs ${available ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-gray-100 text-gray-400'}`}>
+          <div key={i} className={`py-2 px-1 rounded-md text-xs ${available ? 'bg-green-900/20 border border-green-800 text-green-200' : 'bg-neutral-800 text-gray-400'}`}>
             <div className="font-semibold">{format(day, 'EEE')}</div>
             <div className="text-sm">{format(day, 'd')}</div>
           </div>

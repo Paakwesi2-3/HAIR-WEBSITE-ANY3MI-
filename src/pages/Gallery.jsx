@@ -11,10 +11,10 @@ export default function Gallery(){
   return (
     <div>
       <h1 className="text-2xl font-semibold">Gallery</h1>
-      <p className="text-sm text-gray-600 mt-1">Portfolio showcasing different hairstyles and products. Replace placeholders with your images.</p>
+      <p className="text-sm text-gray-300 mt-1">Portfolio showcasing different hairstyles and products. Replace placeholders with your images.</p>
       <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {Array.from({length:12}).map((_,i)=> (
-          <div key={i} className="h-40 bg-gray-100 overflow-hidden rounded">
+          <div key={i} className="h-40 bg-neutral-800 overflow-hidden rounded">
             <img src={images[i % images.length]} alt={`gallery-${i}`} className="w-full h-full object-cover" />
           </div>
         ))}

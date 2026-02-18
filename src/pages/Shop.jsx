@@ -11,7 +11,7 @@ export default function Shop(){
   return (
     <div>
       <h1 className="text-2xl font-semibold">Shop</h1>
-      <p className="text-sm text-gray-600 mt-1">Wigs and braiding hair products. Use the cart to manage purchases.</p>
+      <p className="text-sm text-gray-300 mt-1">Wigs and braiding hair products. Use the cart to manage purchases.</p>
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map(p=> <ProductCard key={p.id} product={p} />)}
       </div>

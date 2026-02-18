@@ -6,7 +6,7 @@ export default function Home(){
     <div className="leading-relaxed">
       {/* HERO */}
       <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1400&q=60" alt="braids hero" className="absolute inset-0 w-full h-full object-cover" />
+        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1400&q=60" alt="braids hero" className="absolute inset-0 w-full h-full object-cover ken-burns" />
         <div className="absolute inset-0 bg-black opacity-60"></div>
         <div className="relative z-10 text-center px-6 max-w-3xl">
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white">Expert Hair Braiding & Premium Wigs</h1>
@@ -19,20 +19,20 @@ export default function Home(){
       </section>
 
       {/* FEATURE SECTION */}
-      <section className="bg-gray-50 py-16">
+      <section className="bg-neutral-900/10 py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-lg border-t-4 border-pink-500 p-6 shadow-sm">
-              <h3 className="font-semibold text-lg">Expert Braiding</h3>
-              <p className="mt-2 text-sm text-gray-600">Decades of experience in precision braiding and styling.</p>
+            <div className="bg-neutral-800 rounded-lg border-t-4 border-pink-500 p-6 shadow-sm">
+              <h3 className="font-semibold text-lg text-white">Expert Braiding</h3>
+              <p className="mt-2 text-sm text-gray-300">Decades of experience in precision braiding and styling.</p>
             </div>
-            <div className="bg-white rounded-lg border-t-4 border-blue-500 p-6 shadow-sm">
-              <h3 className="font-semibold text-lg">Premium Products</h3>
-              <p className="mt-2 text-sm text-gray-600">High-quality wigs and hair extensions sourced for longevity and style.</p>
+            <div className="bg-neutral-800 rounded-lg border-t-4 border-blue-500 p-6 shadow-sm">
+              <h3 className="font-semibold text-lg text-white">Premium Products</h3>
+              <p className="mt-2 text-sm text-gray-300">High-quality wigs and hair extensions sourced for longevity and style.</p>
             </div>
-            <div className="bg-white rounded-lg border-t-4 border-pink-500 p-6 shadow-sm">
-              <h3 className="font-semibold text-lg">UK Based</h3>
-              <p className="mt-2 text-sm text-gray-600">Proudly serving clients across the UK with professional care.</p>
+            <div className="bg-neutral-800 rounded-lg border-t-4 border-pink-500 p-6 shadow-sm">
+              <h3 className="font-semibold text-lg text-white">UK Based</h3>
+              <p className="mt-2 text-sm text-gray-300">Proudly serving clients across the UK with professional care.</p>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@ export default function Home(){
       <section className="py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-2xl font-semibold">Our Services</h2>
-          <p className="text-sm text-gray-600 mt-2">From classic box braids to custom wig installations. Deposits vary by service.</p>
+          <p className="text-sm text-gray-300 mt-2">From classic box braids to custom wig installations. Deposits vary by service.</p>
 
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="relative group overflow-hidden rounded-lg shadow-lg">

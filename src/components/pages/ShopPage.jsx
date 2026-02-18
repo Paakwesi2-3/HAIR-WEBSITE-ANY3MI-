@@ -32,19 +32,19 @@ export default function ShopPage() {
 
   const ProductCard = ({ product }) => (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow">
-      <img src={product.image} alt={product.name} className="w-full h-56 object-cover" />
+      <img src={product.image} alt={product.name} className="w-full h-56 object-cover transition-transform duration-300 transform hover:scale-105" />
       <div className="p-4">
         <div className="flex justify-between items-start mb-2">
-          <h3 className="font-semibold text-lg">{product.name}</h3>
+          <h3 className="font-semibold text-lg text-white">{product.name}</h3>
           {product.inStock ? (
             <Badge className="bg-green-100 text-green-800">In Stock</Badge>
           ) : (
             <Badge variant="secondary">Out of Stock</Badge>
           )}
         </div>
-        <p className="text-gray-600 text-sm mb-4">{product.description}</p>
+        <p className="text-gray-300 text-sm mb-4">{product.description}</p>
         <div className="flex justify-between items-center">
-          <span className="text-2xl font-bold text-pink-600">£{product.price}</span>
+          <span className="text-2xl font-bold text-pink-300">£{product.price}</span>
           <Button onClick={() => addToCart(product)} disabled={!product.inStock} className="bg-gradient-to-r from-pink-500 to-blue-500 text-white">
             <ShoppingCart className="w-4 h-4 mr-2" />Add to Cart
           </Button>
@@ -60,14 +60,14 @@ export default function ShopPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Shop Wigs & Hair Products</h1>
           <p className="text-xl text-white/90 max-w-2xl mx-auto">Premium quality wigs and braiding hair for all your styling needs</p>
           {cart.length > 0 && (
-            <div className="mt-6 inline-flex items-center bg-white text-pink-600 px-6 py-3 rounded-full font-semibold">
+            <div className="mt-6 inline-flex items-center bg-neutral-800 text-pink-300 px-6 py-3 rounded-full font-semibold">
               <ShoppingCart className="w-5 h-5 mr-2" />{cart.length} item(s) in cart
             </div>
           )}
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-900/10">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold">Products</h2>
@@ -102,7 +102,7 @@ export default function ShopPage() {
           </Tabs>
 
           {showCart && (
-            <div className="mt-8 border rounded-lg p-4 bg-white">
+            <div className="mt-8 border rounded-lg p-4 bg-neutral-800 text-gray-200">
               <h3 className="text-lg font-semibold mb-4">Your Cart</h3>
               {cart.length === 0 ? (
                 <Alert>
@@ -114,10 +114,10 @@ export default function ShopPage() {
                     {cart.map((item, idx) => (
                       <div key={idx} className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                          <img src={item.image} alt={item.name} className="w-16 h-12 object-cover rounded" />
+                          <img src={item.image} alt={item.name} className="w-16 h-12 object-cover rounded transition-transform duration-200 transform hover:scale-110" />
                           <div>
                             <div className="font-medium">{item.name}</div>
-                            <div className="text-sm text-gray-600">£{item.price}</div>
+                            <div className="text-sm text-gray-300">£{item.price}</div>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">

@@ -101,17 +101,17 @@ export default function BookingPage({ onNavigate }) {
 
   if (submitted) {
     return (
-      <div className="min-h-screen bg-gray-50 py-16">
+      <div className="min-h-screen bg-neutral-900/10 py-16">
         <div className="container mx-auto px-4 max-w-2xl">
           <Card className="p-8 text-center">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-12 h-12 text-green-600" />
+            <div className="w-20 h-20 bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 className="w-12 h-12 text-green-200" />
             </div>
-            <h2 className="text-3xl font-bold mb-4">Booking Request Received!</h2>
-            <p className="text-gray-600 mb-8">Thank you for your booking request. We'll contact you shortly to confirm your appointment and provide payment details for your deposit.</p>
+            <h2 className="text-3xl font-bold mb-4 text-white">Booking Request Received!</h2>
+            <p className="text-gray-300 mb-8">Thank you for your booking request. We'll contact you shortly to confirm your appointment and provide payment details for your deposit.</p>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8 text-left">
-              <h3 className="font-semibold text-lg mb-4">Next Steps:</h3>
+            <div className="bg-blue-900/20 border border-blue-800 rounded-lg p-6 mb-8 text-left">
+              <h3 className="font-semibold text-lg mb-4 text-white">Next Steps:</h3>
               <ol className="space-y-3">
                 <li className="flex items-start"><span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold mr-3 mt-0.5">1</span>We'll contact you within 24 hours to confirm availability</li>
                 <li className="flex items-start"><span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-semibold mr-3 mt-0.5">2</span>You'll receive payment instructions for your deposit</li>
@@ -120,12 +120,12 @@ export default function BookingPage({ onNavigate }) {
               </ol>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-6 mb-8 text-left">
+            <div className="bg-neutral-800 rounded-lg p-6 mb-8 text-left text-gray-200">
               <h3 className="font-semibold text-lg mb-4">Booking Summary</h3>
               <div className="space-y-2">
-                <div className="flex justify-between"><span className="text-gray-600">Service:</span><span className="font-semibold">{selectedService}</span></div>
-                <div className="flex justify-between text-lg mt-2"><span className="text-blue-600 font-semibold">Deposit Required:</span><span className="text-blue-600 font-bold">£{selectedServiceData?.minDeposit}</span></div>
-                <div className="flex justify-between"><span className="text-gray-600">Balance Due:</span><span className="font-semibold">£{selectedServiceData ? selectedServiceData.price - selectedServiceData.minDeposit : 0}</span></div>
+                <div className="flex justify-between"><span className="text-gray-300">Service:</span><span className="font-semibold">{selectedService}</span></div>
+                <div className="flex justify-between text-lg mt-2"><span className="text-blue-300 font-semibold">Deposit Required:</span><span className="text-blue-300 font-bold">£{selectedServiceData?.minDeposit}</span></div>
+                <div className="flex justify-between"><span className="text-gray-300">Balance Due:</span><span className="font-semibold">£{selectedServiceData ? selectedServiceData.price - selectedServiceData.minDeposit : 0}</span></div>
               </div>
             </div>
 
@@ -148,11 +148,11 @@ export default function BookingPage({ onNavigate }) {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-900/10">
         <div className="container mx-auto px-4 max-w-3xl">
-          <Alert className="mb-8 border-pink-200 bg-pink-50">
-            <AlertCircle className="h-5 w-5 text-pink-600" />
-            <AlertDescription className="text-pink-900"><strong>Important:</strong> All bookings require a minimum deposit to secure your appointment. The deposit amount varies by service and will be deducted from your total.</AlertDescription>
+          <Alert className="mb-8 border-pink-800 bg-pink-900/20">
+            <AlertCircle className="h-5 w-5 text-pink-300" />
+            <AlertDescription className="text-pink-200"><strong>Important:</strong> All bookings require a minimum deposit to secure your appointment. The deposit amount varies by service and will be deducted from your total.</AlertDescription>
           </Alert>
 
           <Card className="p-8">
@@ -172,21 +172,21 @@ export default function BookingPage({ onNavigate }) {
               </div>
 
               {selectedServiceData && (
-                <div className="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                  <h3 className="font-semibold mb-3">Service Details</h3>
+                <div className="mb-6 p-4 bg-blue-900/20 rounded-lg border border-blue-800 text-gray-200">
+                  <h3 className="font-semibold mb-3 text-white">Service Details</h3>
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div>
-                      <p className="text-sm text-gray-600">Duration</p>
-                      <p className="font-semibold flex items-center"><Clock className="w-4 h-4 mr-1" />{selectedServiceData.duration}</p>
+                      <p className="text-sm text-gray-400">Duration</p>
+                      <p className="font-semibold flex items-center"><Clock className="w-4 h-4 mr-1 text-gray-300" />{selectedServiceData.duration}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-600">Total Price</p>
+                      <p className="text-sm text-gray-400">Total Price</p>
                       <p className="font-semibold text-lg">£{selectedServiceData.price}</p>
                     </div>
                   </div>
                   <div className="border-t pt-3">
-                    <div className="flex justify-between items-center mb-2"><span className="text-blue-600 font-semibold">Deposit Required:</span><span className="text-2xl font-bold text-blue-600">£{selectedServiceData.minDeposit}</span></div>
-                    <div className="flex justify-between items-center"><span className="text-gray-600">Balance Due (pay on day):</span><span className="font-semibold">£{selectedServiceData.price - selectedServiceData.minDeposit}</span></div>
+                    <div className="flex justify-between items-center mb-2"><span className="text-blue-300 font-semibold">Deposit Required:</span><span className="text-2xl font-bold text-blue-300">£{selectedServiceData.minDeposit}</span></div>
+                    <div className="flex justify-between items-center"><span className="text-gray-300">Balance Due (pay on day):</span><span className="font-semibold">£{selectedServiceData.price - selectedServiceData.minDeposit}</span></div>
                   </div>
                 </div>
               )}
@@ -205,17 +205,17 @@ export default function BookingPage({ onNavigate }) {
                 </Popover>
               </div>
 
-              <div className="flex items-start justify-between gap-4">
-                <p className="text-sm text-gray-600 mt-2">Availability follows a two-week cycle that flips: Week A — work Mon/Tue and Sat/Sun (off Wed–Fri); Week B — work Wed/Thu/Fri (off Sat–Tue).</p>
+                <div className="flex items-start justify-between gap-4">
+                <p className="text-sm text-gray-300 mt-2">Availability follows a two-week cycle that flips: Week A — work Mon/Tue and Sat/Sun (off Wed–Fri); Week B — work Wed/Thu/Fri (off Sat–Tue).</p>
                 <div className="text-right mt-2">
                   {(() => {
                     const next = findNextAvailable(today);
-                    return next ? (
+                        return next ? (
                       <div className="space-x-2">
-                        <span className="text-sm text-gray-700 mr-3">Next available:</span>
-                        <Button onClick={() => setDate(next)} className="inline-flex items-center px-3 py-2 bg-white border">{format(next, 'EEE, d MMM')}</Button>
+                        <span className="text-sm text-gray-200 mr-3">Next available:</span>
+                        <Button onClick={() => setDate(next)} className="inline-flex items-center px-3 py-2 bg-neutral-800 border border-neutral-700 text-gray-200">{format(next, 'EEE, d MMM')}</Button>
                       </div>
-                    ) : <span className="text-sm text-gray-500">No availability found</span>;
+                    ) : <span className="text-sm text-gray-400">No availability found</span>;
                   })()}
                 </div>
               </div>
@@ -233,7 +233,7 @@ export default function BookingPage({ onNavigate }) {
                         key={i}
                         type="button"
                         onClick={() => available && setDate(day)}
-                        className={`py-2 px-1 rounded-md text-xs ${isSelected ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white' : available ? 'bg-green-50 border border-green-200 text-green-800' : 'bg-gray-100 text-gray-400 cursor-not-allowed'}`}
+                        className={`py-2 px-1 rounded-md text-xs ${isSelected ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white' : available ? 'bg-green-900/20 border border-green-800 text-green-200' : 'bg-neutral-800 text-gray-400 cursor-not-allowed'}`}
                         aria-disabled={!available}
                         aria-label={`${format(day, 'EEEE, MMM d')}${available ? ' available' : ' unavailable'}`}
                       >
@@ -277,7 +277,7 @@ export default function BookingPage({ onNavigate }) {
                 </div>
               </div>
 
-              <div className="bg-gray-50 p-4 rounded-lg mb-6 text-sm text-gray-600">
+              <div className="bg-neutral-800 p-4 rounded-lg mb-6 text-sm text-gray-200">
                 <p className="font-semibold mb-2">Booking Policy:</p>
                 <ul className="list-disc list-inside space-y-1">
                   <li>Deposits are non-refundable but transferable with 48 hours notice</li>

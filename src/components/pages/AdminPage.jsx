@@ -62,10 +62,10 @@ export default function AdminPage({ onNavigate }) {
         </div>
       </div>
 
-      <p className="text-sm text-gray-600 mb-4">Toggle dates below to mark them unavailable for booking. Changes are saved locally (localStorage) and take effect immediately.</p>
+      <p className="text-sm text-gray-300 mb-4">Toggle dates below to mark them unavailable for booking. Changes are saved locally (localStorage) and take effect immediately.</p>
 
       <div className="grid grid-cols-7 gap-2">
-        {[...Array(60)].map((_, i) => {
+          {([...Array(60)].map((_, i) => {
           const day = addDays(startOfDay(new Date()), i);
           const key = day.toISOString().slice(0,10);
           const disabled = disabledDates.includes(key);
@@ -74,18 +74,18 @@ export default function AdminPage({ onNavigate }) {
               key={i}
               type="button"
               onClick={() => toggleDate(day)}
-              className={`py-2 px-1 rounded-md text-xs ${disabled ? 'bg-red-100 border border-red-200 text-red-800' : 'bg-green-50 border border-green-200 text-green-800'}`}
+              className={`py-2 px-1 rounded-md text-xs ${disabled ? 'bg-red-900/20 border border-red-800 text-red-200' : 'bg-green-900/20 border border-green-800 text-green-200'}`}
             >
               <div className="font-semibold">{format(day, 'EEE')}</div>
               <div className="text-sm">{format(day, 'd MMM')}</div>
             </button>
           );
-        })}
+        }))}
       </div>
       
       <div className="mt-6">
         <h3 className="text-lg font-semibold mb-2">Founder Photo</h3>
-        <p className="text-sm text-gray-600 mb-2">Upload a photo for the About page. This is stored locally in your browser.</p>
+        <p className="text-sm text-gray-300 mb-2">Upload a photo for the About page. This is stored locally in your browser.</p>
         <div className="flex items-center gap-4">
           <input
             type="file"
@@ -97,7 +97,7 @@ export default function AdminPage({ onNavigate }) {
               <img src={founderPreview} alt="preview" className="w-20 h-20 object-cover rounded-full border" />
               <Button onClick={removeFounder} className="bg-red-500 text-white">Remove</Button>
             </div>
-          ) : <div className="text-sm text-gray-500">No image uploaded</div>}
+          ) : <div className="text-sm text-gray-400">No image uploaded</div>}
         </div>
       </div>
     </div>

@@ -10,13 +10,13 @@ export default function Contact(){
   }
 
   if(sent){
-    return <div className="p-6 border rounded">Thanks — your inquiry has been received. We will reply shortly.</div>
+    return <div className="p-6 border rounded bg-neutral-800 text-gray-100">Thanks — your inquiry has been received. We will reply shortly.</div>
   }
 
   return (
     <div className="max-w-xl">
       <h1 className="text-2xl font-semibold">Contact</h1>
-      <p className="text-sm text-gray-600 mt-1">Email, phone, or use the form below for inquiries.</p>
+      <p className="text-sm text-gray-300 mt-1">Email, phone, or use the form below for inquiries.</p>
       <form onSubmit={handleSubmit} className="mt-4 space-y-4">
         <div>
           <label className="block text-sm">Message</label>

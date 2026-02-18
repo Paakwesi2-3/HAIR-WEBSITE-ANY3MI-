@@ -47,7 +47,7 @@ export default function App() {
 
   return (
     <CartProvider>
-      <div className="min-h-screen flex flex-col bg-white text-gray-900">
+      <div className="min-h-screen flex flex-col bg-[#070707] text-gray-100">
         <Header onNavigate={navigate} currentPage={currentPage} />
         <main className="flex-1 container mx-auto px-4 py-8">
           {renderPage()}

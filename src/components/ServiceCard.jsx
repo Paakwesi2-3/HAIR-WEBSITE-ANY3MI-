@@ -5,10 +5,10 @@ export default function ServiceCard({ service }){
   return (
     <div className="border rounded-lg p-0 overflow-hidden shadow-sm">
       <img src={img} alt={service.name} className="w-full h-40 object-cover" />
-      <div className="p-4 bg-white">
-        <h3 className="text-lg font-semibold">{service.name}</h3>
-        <p className="text-sm text-gray-600">Price: £{service.price}</p>
-        <p className="text-sm text-pink-500 font-medium">Deposit: £{service.deposit}</p>
+      <div className="p-4 bg-neutral-800">
+        <h3 className="text-lg font-semibold text-white">{service.name}</h3>
+        <p className="text-sm text-gray-300">Price: £{service.price}</p>
+        <p className="text-sm text-pink-300 font-medium">Deposit: £{service.deposit}</p>
       </div>
     </div>
   )

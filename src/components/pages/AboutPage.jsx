@@ -36,24 +36,24 @@ export default function AboutPage({ onNavigate }) {
       </section>
 
       {/* Story Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-neutral-900/10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
                 Welcome to Excella Braids
               </h2>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-300 mb-4 leading-relaxed">
                 We are a UK-based hair braiding and beauty business dedicated to helping you look 
                 and feel your absolute best. With years of experience in African hair braiding and 
                 a passion for quality, we've built a reputation for excellence in every style we create.
               </p>
-              <p className="text-gray-600 mb-4 leading-relaxed">
+              <p className="text-gray-300 mb-4 leading-relaxed">
                 Our founder, Iabella Nana Yaa Asenso, has been perfecting the art of hair braiding for over a decade, 
                 combining traditional techniques with modern styles to create looks that are both 
                 timeless and on-trend.
               </p>
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed">
                 Whether you're looking for protective styles, a complete transformation with a premium wig, 
                 or quality hair products, we're here to make your vision a reality. Every appointment begins 
                 with a consultation to ensure we understand exactly what you want.
@@ -81,7 +81,7 @@ export default function AboutPage({ onNavigate }) {
       </section>
 
       {/* Values Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-900/10">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             Our Values
@@ -91,8 +91,8 @@ export default function AboutPage({ onNavigate }) {
               <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Heart className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Passion & Care</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold mb-3 text-white">Passion & Care</h3>
+              <p className="text-gray-300">
                 We treat every client with the utmost care and attention, ensuring you leave feeling 
                 confident and beautiful.
               </p>
@@ -102,8 +102,8 @@ export default function AboutPage({ onNavigate }) {
               <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Quality Products</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold mb-3 text-white">Quality Products</h3>
+              <p className="text-gray-300">
                 We use only premium quality hair extensions and products to ensure long-lasting, 
                 beautiful results.
               </p>
@@ -113,8 +113,8 @@ export default function AboutPage({ onNavigate }) {
               <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Client Focused</h3>
-              <p className="text-gray-600">
+              <h3 className="text-xl font-bold mb-3 text-white">Client Focused</h3>
+              <p className="text-gray-300">
                 Your satisfaction is our priority. We listen to your needs and work to exceed 
                 your expectations.
               </p>
@@ -124,7 +124,7 @@ export default function AboutPage({ onNavigate }) {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-neutral-900/10">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
             Why Choose Us
@@ -132,32 +132,32 @@ export default function AboutPage({ onNavigate }) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <Star className="w-12 h-12 text-pink-500 mx-auto mb-4" />
-              <h3 className="font-semibold text-lg mb-2">Expert Craftsmanship</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="font-semibold text-lg mb-2 text-white">Expert Craftsmanship</h3>
+              <p className="text-gray-300 text-sm">
                 Over 10 years of experience in braiding and styling
               </p>
             </Card>
 
             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <Clock className="w-12 h-12 text-blue-500 mx-auto mb-4" />
-              <h3 className="font-semibold text-lg mb-2">Flexible Scheduling</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="font-semibold text-lg mb-2 text-white">Flexible Scheduling</h3>
+              <p className="text-gray-300 text-sm">
                 Convenient appointment times to fit your busy schedule
               </p>
             </Card>
 
             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <MapPin className="w-12 h-12 text-pink-500 mx-auto mb-4" />
-              <h3 className="font-semibold text-lg mb-2">UK Based</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="font-semibold text-lg mb-2 text-white">UK Based</h3>
+              <p className="text-gray-300 text-sm">
                 Proudly serving clients across Birmingham and the surrounding areas
               </p>
             </Card>
 
             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <Award className="w-12 h-12 text-blue-500 mx-auto mb-4" />
-              <h3 className="font-semibold text-lg mb-2">Premium Products</h3>
-              <p className="text-gray-600 text-sm">
+              <h3 className="font-semibold text-lg mb-2 text-white">Premium Products</h3>
+              <p className="text-gray-300 text-sm">
                 Only the finest wigs and hair extensions available
               </p>
             </Card>

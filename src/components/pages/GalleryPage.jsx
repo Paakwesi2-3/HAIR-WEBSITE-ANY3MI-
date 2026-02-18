@@ -28,7 +28,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <section className="py-8 bg-white border-b">
+      <section className="py-8 bg-neutral-900/10 border-b border-neutral-800">
         <div className="container mx-auto px-4 flex justify-center gap-3">
           <Button onClick={() => setFilter('all')} className={filter === 'all' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white' : ''}>All</Button>
           <Button onClick={() => setFilter('braids')} className={filter === 'braids' ? 'bg-gradient-to-r from-pink-500 to-blue-500 text-white' : ''}>Braids</Button>
@@ -37,14 +37,14 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-neutral-900/10">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {filtered.map(img => (
               <Dialog key={img.id} open={openImage === img.id} onOpenChange={(open) => { if (!open) setOpenImage(null) }}>
                 <DialogTrigger asChild>
                   <div onClick={() => setOpenImage(img.id)} className="relative group cursor-pointer overflow-hidden rounded-lg">
-                    <img src={img.url} alt={img.title} className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110" />
+                    <img src={img.url} alt={img.title} className="w-full h-64 object-cover transition-transform duration-300 transform group-hover:scale-110 hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
                       <p className="text-white font-semibold text-lg p-4">{img.title}</p>
                     </div>
@@ -52,7 +52,7 @@ export default function GalleryPage() {
                 </DialogTrigger>
                 <DialogContent className="max-w-4xl">
                   <div className="relative">
-                    <button onClick={() => setOpenImage(null)} className="absolute right-2 top-2 p-2 rounded bg-white"><X /></button>
+                    <button onClick={() => setOpenImage(null)} className="absolute right-2 top-2 p-2 rounded bg-neutral-800 text-white"><X /></button>
                     <img src={img.url} alt={img.title} className="w-full h-auto rounded-lg" />
                     <h3 className="text-2xl font-bold mt-4">{img.title}</h3>
                   </div>
