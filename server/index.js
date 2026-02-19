@@ -36,12 +36,26 @@ function sendBookingEmail(booking, action = 'created') {
   if (!owner) return Promise.resolve();
 
   const subject = action === 'created' ? `New booking: ${booking.name} — ${booking.service}` : `Booking updated: ${booking.name} — ${booking.service}`;
-  const text = `Booking ${action}\n\nName: ${booking.name}\nEmail: ${booking.email}\nPhone: ${booking.phone || ''}\nService: ${booking.service}\nDate: ${booking.date} ${booking.time || ''}\nStatus: ${booking.status || 'pending'}\nNotes: ${booking.notes || ''}\n\nVisit admin dashboard to manage bookings.`;
+  // build admin link (configurable via ADMIN_PANEL_URL). Format used: <base>/#admin?booking=ID
+  const adminBase = process.env.ADMIN_PANEL_URL || `http://localhost:5173`;
+  const adminLink = `${adminBase.replace(/\/$/, '')}/#admin?booking=${booking.id}`;
+  const text = `Booking ${action}\n\nName: ${booking.name}\nEmail: ${booking.email}\nPhone: ${booking.phone || ''}\nService: ${booking.service}\nDate: ${booking.date} ${booking.time || ''}\nStatus: ${booking.status || 'pending'}\nNotes: ${booking.notes || ''}\n\nOpen the admin dashboard to manage this booking: ${adminLink}`;
+  const html = `<p>Booking <strong>${action}</strong></p>
+<ul>
+  <li><strong>Name:</strong> ${booking.name}</li>
+  <li><strong>Email:</strong> ${booking.email}</li>
+  <li><strong>Phone:</strong> ${booking.phone || ''}</li>
+  <li><strong>Service:</strong> ${booking.service}</li>
+  <li><strong>Date:</strong> ${booking.date} ${booking.time || ''}</li>
+  <li><strong>Status:</strong> ${booking.status || 'pending'}</li>
+  <li><strong>Notes:</strong> ${booking.notes || ''}</li>
+</ul>
+<p><a href="${adminLink}">Open admin dashboard for this booking</a></p>`;
 
   // If SMTP is configured, use it. Otherwise create an Ethereal test account and log preview URL.
   const transporter = createTransporter();
   if (transporter) {
-    return transporter.sendMail({ from, to: owner, subject, text }).then(() => null).catch((err) => {
+    return transporter.sendMail({ from, to: owner, subject, text, html }).then(() => null).catch((err) => {
       console.warn('Failed to send booking email via SMTP:', err && err.message ? err.message : err);
       // fallback to ethereal preview for developer convenience
       return nodemailer.createTestAccount().then((testAccount) => {
@@ -51,7 +65,7 @@ function sendBookingEmail(booking, action = 'created') {
           secure: testAccount.smtp.secure,
           auth: { user: testAccount.user, pass: testAccount.pass }
         });
-        return testTransport.sendMail({ from: testAccount.user, to: owner, subject, text }).then((info) => {
+        return testTransport.sendMail({ from: testAccount.user, to: owner, subject, text, html }).then((info) => {
           const url = nodemailer.getTestMessageUrl(info);
           if (url) console.log('Preview booking email (fallback):', url);
           return url || null;
@@ -74,7 +88,7 @@ function sendBookingEmail(booking, action = 'created') {
       secure: testAccount.smtp.secure,
       auth: { user: testAccount.user, pass: testAccount.pass }
     });
-    return testTransport.sendMail({ from: testAccount.user, to: owner, subject, text }).then((info) => {
+    return testTransport.sendMail({ from: testAccount.user, to: owner, subject, text, html }).then((info) => {
       const url = nodemailer.getTestMessageUrl(info);
       if (url) console.log('Preview booking email:', url);
       return url || null;

@@ -9,6 +9,7 @@ export default function AdminPage({ onNavigate }) {
   const [editData, setEditData] = useState({});
   const [disabledDates, setDisabledDates] = useState([]);
   const [founderPreview, setFounderPreview] = useState(null);
+  const [bookingToOpen, setBookingToOpen] = useState(null);
 
   useEffect(() => {
     try {
@@ -19,6 +20,18 @@ export default function AdminPage({ onNavigate }) {
     } catch (e) {
       setDisabledDates([]);
     }
+    // parse booking id from URL hash (e.g. #admin?booking=12)
+    try {
+      const hash = window.location.hash || '';
+      if (hash.includes('#admin')) {
+        const parts = hash.split('?');
+        if (parts[1]) {
+          const params = new URLSearchParams(parts[1]);
+          const bid = params.get('booking');
+          if (bid) setBookingToOpen(Number(bid));
+        }
+      }
+    } catch (e) { /* ignore */ }
     // load bookings
     loadBookings();
   }, []);
@@ -39,6 +52,12 @@ export default function AdminPage({ onNavigate }) {
       if (res.ok) {
         const body = await res.json();
         setBookings(body);
+        // if opened via email link, open the requested booking for quick access
+        if (bookingToOpen) {
+          const found = body.find(b => Number(b.id) === Number(bookingToOpen));
+          if (found) startEdit(found);
+          setBookingToOpen(null);
+        }
       }
     } catch (e) {
       // ignore
