@@ -22,6 +22,9 @@ export default function BookingPage({ onNavigate }) {
   const [selectedService, setSelectedService] = useState('');
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', time: '', notes: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [slotAvailable, setSlotAvailable] = useState(null);
 
   const services = [
     { id: 1, name: 'Box Braids', price: 80, minDeposit: 30, duration: '4-6 hours' },
@@ -97,7 +100,87 @@ export default function BookingPage({ onNavigate }) {
   }, []);
 
   const handleChange = (field, value) => setFormData({ ...formData, [field]: value });
-  const handleSubmit = (e) => { e.preventDefault(); setSubmitted(true); };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    if (!selectedService || !date || !formData.time || !formData.name || !formData.email || !formData.phone) {
+      setError('Please complete all required fields.');
+      return;
+    }
+    setLoading(true);
+    try {
+      // final availability check before submit (best-effort UX; server still enforces uniqueness)
+      // prefer Vite env var, then CRA-style REACT_APP_API_URL, then localhost
+      let viteUrl = null;
+      try { viteUrl = import.meta && import.meta.env && import.meta.env.VITE_API_URL; } catch (e) { viteUrl = null; }
+      const craUrl = (typeof process !== 'undefined' && process && process.env && process.env.REACT_APP_API_URL) || null;
+      const apiBase = viteUrl || craUrl || 'http://localhost:4001';
+      const checkRes = await fetch(`${apiBase}/api/availability?date=${encodeURIComponent(date.toISOString())}&time=${encodeURIComponent(formData.time)}`);
+      if (checkRes.ok) {
+        const body = await checkRes.json();
+        if (!body.available) {
+          setError('Selected slot is no longer available. Please choose another time.');
+          setLoading(false);
+          setSlotAvailable(false);
+          return;
+        }
+      }
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        service: selectedService,
+        date: date.toISOString(),
+        time: formData.time,
+        notes: formData.notes,
+      };
+      const res = await fetch(apiBase + '/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        throw new Error(body.error || 'Server error');
+      }
+      await res.json();
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.message || 'Failed to submit booking');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Client-side availability check when date or time changes
+  useEffect(() => {
+    let mounted = true;
+    setSlotAvailable(null);
+    setError(null);
+    if (!date || !formData.time) return;
+    let viteUrl = null;
+    try { viteUrl = import.meta && import.meta.env && import.meta.env.VITE_API_URL; } catch (e) { viteUrl = null; }
+    const craUrl = (typeof process !== 'undefined' && process && process.env && process.env.REACT_APP_API_URL) || null;
+    const apiBase = viteUrl || craUrl || 'http://localhost:4001';
+    const url = `${apiBase}/api/availability?date=${encodeURIComponent(date.toISOString())}&time=${encodeURIComponent(formData.time)}`;
+    const controller = new AbortController();
+    (async () => {
+      try {
+        const res = await fetch(url, { signal: controller.signal });
+        if (!mounted) return;
+        if (res.ok) {
+          const body = await res.json();
+          setSlotAvailable(Boolean(body.available));
+          if (!body.available) setError('Selected slot is already booked.');
+        }
+      } catch (e) {
+        if (e.name !== 'AbortError') {
+          // ignore network errors for availability check
+        }
+      }
+    })();
+    return () => { mounted = false; controller.abort(); };
+  }, [date, formData.time]);
 
   if (submitted) {
     return (
@@ -157,6 +240,18 @@ export default function BookingPage({ onNavigate }) {
 
           <Card className="p-8">
             <form onSubmit={handleSubmit}>
+              {error && (
+                <Alert className="mb-6 border-red-800 bg-red-900/20">
+                  <AlertCircle className="h-5 w-5 text-red-300" />
+                  <AlertDescription className="text-red-200">{error}</AlertDescription>
+                </Alert>
+              )}
+              {slotAvailable === false && (
+                <Alert className="mb-6 border-red-800 bg-red-900/20">
+                  <AlertCircle className="h-5 w-5 text-red-300" />
+                  <AlertDescription className="text-red-200">Selected date/time is unavailable. Please choose another slot.</AlertDescription>
+                </Alert>
+              )}
               <div className="mb-6">
                 <Label htmlFor="service" className="text-lg font-semibold mb-2 block">Select Service *</Label>
                 <Select value={selectedService} onValueChange={setSelectedService}>
@@ -287,7 +382,7 @@ export default function BookingPage({ onNavigate }) {
                 </ul>
               </div>
 
-              <Button type="submit" className="w-full bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white font-semibold text-lg py-6" disabled={!selectedService || !date || !formData.time || !formData.name || !formData.email || !formData.phone}>Submit Booking Request</Button>
+              <Button type="submit" className="w-full bg-gradient-to-r from-pink-500 to-blue-500 hover:from-pink-600 hover:to-blue-600 text-white font-semibold text-lg py-6" disabled={loading || !selectedService || !date || !formData.time || !formData.name || !formData.email || !formData.phone}>{loading ? 'Submitting...' : 'Submit Booking Request'}</Button>
             </form>
           </Card>
         </div>

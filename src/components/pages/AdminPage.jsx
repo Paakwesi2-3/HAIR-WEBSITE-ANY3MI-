@@ -3,6 +3,10 @@ import { format, startOfDay, addDays } from 'date-fns';
 import { Button } from '../ui/button';
 
 export default function AdminPage({ onNavigate }) {
+  const [bookings, setBookings] = useState([]);
+  const [loadingBookings, setLoadingBookings] = useState(false);
+  const [editingId, setEditingId] = useState(null);
+  const [editData, setEditData] = useState({});
   const [disabledDates, setDisabledDates] = useState([]);
   const [founderPreview, setFounderPreview] = useState(null);
 
@@ -15,7 +19,63 @@ export default function AdminPage({ onNavigate }) {
     } catch (e) {
       setDisabledDates([]);
     }
+    // load bookings
+    loadBookings();
   }, []);
+
+  let apiBase = 'http://localhost:4001';
+  try {
+    if (import.meta && import.meta.env && import.meta.env.VITE_API_URL) apiBase = import.meta.env.VITE_API_URL;
+  } catch (e) {
+    if (typeof process !== 'undefined' && process && process.env && process.env.REACT_APP_API_URL) {
+      apiBase = process.env.REACT_APP_API_URL;
+    }
+  }
+
+  const loadBookings = async () => {
+    setLoadingBookings(true);
+    try {
+      const res = await fetch(`${apiBase}/api/bookings`);
+      if (res.ok) {
+        const body = await res.json();
+        setBookings(body);
+      }
+    } catch (e) {
+      // ignore
+    } finally {
+      setLoadingBookings(false);
+    }
+  };
+
+  const startEdit = (b) => { setEditingId(b.id); setEditData({ ...b }); };
+  const cancelEdit = () => { setEditingId(null); setEditData({}); };
+  const saveEdit = async () => {
+    try {
+      const res = await fetch(`${apiBase}/api/bookings/${editingId}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(editData),
+      });
+      if (res.ok) {
+        await loadBookings();
+        cancelEdit();
+      } else {
+        const b = await res.json().catch(() => ({}));
+        alert(b.error || 'Failed to save');
+      }
+    } catch (e) { alert('Network error'); }
+  };
+
+  const actOn = async (id, action) => {
+    try {
+      const res = await fetch(`${apiBase}/api/bookings/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: action }),
+      });
+      if (res.ok) loadBookings();
+    } catch (e) { /* ignore */ }
+  };
 
   const save = (arr) => {
     localStorage.setItem('disabledDates', JSON.stringify(arr));
@@ -53,7 +113,7 @@ export default function AdminPage({ onNavigate }) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-3xl">
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Admin — Manage Disabled Dates</h1>
         <div>
@@ -81,6 +141,53 @@ export default function AdminPage({ onNavigate }) {
             </button>
           );
         }))}
+      </div>
+
+      <div className="mt-10">
+        <h2 className="text-xl font-semibold mb-4">Bookings</h2>
+        {loadingBookings ? <div className="text-sm text-gray-400">Loading...</div> : (
+          <div className="bg-neutral-800 rounded-lg p-4">
+            {bookings.length === 0 ? <div className="text-sm text-gray-400">No bookings yet</div> : (
+              <div className="space-y-3">
+                {bookings.map(b => (
+                  <div key={b.id} className="p-3 bg-neutral-900/20 rounded-md">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-semibold">{b.name} <span className="text-sm text-gray-400">({b.email})</span></div>
+                        <div className="text-sm text-gray-300">{b.service} — {b.date} @ {b.time}</div>
+                        <div className="text-sm text-gray-400 mt-2">{b.notes}</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="mb-2"><span className={`px-2 py-1 rounded text-sm ${b.status === 'accepted' ? 'bg-green-600 text-white' : b.status === 'declined' ? 'bg-red-600 text-white' : 'bg-yellow-600 text-white'}`}>{b.status || 'pending'}</span></div>
+                        <div className="flex gap-2">
+                          <Button onClick={() => actOn(b.id, 'accepted')} className="bg-green-600 text-white">Accept</Button>
+                          <Button onClick={() => actOn(b.id, 'declined')} className="bg-red-600 text-white">Decline</Button>
+                          <Button onClick={() => startEdit(b)} variant="outline">Edit</Button>
+                        </div>
+                      </div>
+                    </div>
+                    {editingId === b.id && (
+                      <div className="mt-3 border-t pt-3">
+                        <div className="grid grid-cols-2 gap-2">
+                          <input className="p-2 bg-neutral-800 rounded" value={editData.name || ''} onChange={(e) => setEditData({ ...editData, name: e.target.value })} />
+                          <input className="p-2 bg-neutral-800 rounded" value={editData.email || ''} onChange={(e) => setEditData({ ...editData, email: e.target.value })} />
+                          <input className="p-2 bg-neutral-800 rounded" value={editData.service || ''} onChange={(e) => setEditData({ ...editData, service: e.target.value })} />
+                          <input className="p-2 bg-neutral-800 rounded" value={editData.date || ''} onChange={(e) => setEditData({ ...editData, date: e.target.value })} />
+                          <input className="p-2 bg-neutral-800 rounded" value={editData.time || ''} onChange={(e) => setEditData({ ...editData, time: e.target.value })} />
+                          <input className="p-2 bg-neutral-800 rounded" value={editData.phone || ''} onChange={(e) => setEditData({ ...editData, phone: e.target.value })} />
+                        </div>
+                        <div className="mt-3 flex gap-2">
+                          <Button onClick={saveEdit} className="bg-blue-600 text-white">Save</Button>
+                          <Button onClick={cancelEdit} variant="outline">Cancel</Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
       
       <div className="mt-6">
